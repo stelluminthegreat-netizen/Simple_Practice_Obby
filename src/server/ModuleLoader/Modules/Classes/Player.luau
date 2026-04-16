@@ -10,6 +10,11 @@ end
 function class:Initialize(player)
 	self.Player = player
 	self.Character = shared.Character.new(player)
+	self.CurrentSpawn = 0
+end
+
+function class:SetSpawn(spawnPoint)
+	
 end
 
 return class
