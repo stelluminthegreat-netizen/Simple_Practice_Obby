@@ -1,9 +1,11 @@
 local class = {}
 class.__index = class
+class.Players = {}
 
 function class.new(player)
 	local self = setmetatable({}, class)
 	self:Initialize(player)
+	class.Players[player.Name] = self
 	return self
 end
 
