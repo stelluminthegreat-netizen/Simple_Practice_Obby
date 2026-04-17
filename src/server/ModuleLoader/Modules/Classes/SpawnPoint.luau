@@ -2,11 +2,11 @@ local class = {}
 class.__index = class
 
 function class.new(platform)
-	print("New Obby")
 	local self = setmetatable(platform:GetAttributes(), class)
 	self.AssignedPlayers = {}
 	self.Platform = platform
 	self.Connections = {}
+	self:Initialize()
 
 	return self
 end
@@ -16,7 +16,7 @@ function  class:Initialize()
 		if not Part.Parent:FindFirstChild("Humanoid") then return end
 		local characterName = Part.Parent.Name
 
-		if self:IsPlayerAssigned(characterName) == true then return end
+		if self:IsPlayerAssigned(characterName) == true then print("Player assigned") return end
 		self:AssignPlayerSpawn(characterName)
 		self:SetPlayerSpawnPoint(self.AssignedPlayers[characterName])
 	end)
