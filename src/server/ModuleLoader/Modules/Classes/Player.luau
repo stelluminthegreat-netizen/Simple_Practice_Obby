@@ -18,7 +18,6 @@ function class:Initialize(player)
 end
 
 function class:SetSpawn(spawnPoint)
-	warn(spawnPoint)
 	local Connection = self.Connections["SetSpawn"]
 	if Connection then Connection:Disconnect() Connection = nil end
 
