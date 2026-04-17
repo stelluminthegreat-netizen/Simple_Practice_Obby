@@ -19,9 +19,10 @@ function class:SetSpawn(spawnPoint)
 	local Connection = self.Connections["SetSpawn"]
 	if Connection then Connection:Disconnect() Connection = nil end
 
-	local spawnPoints = game.Workspace.Obby.SpawnPoints:GetChildren()
+	local spawnPoints = game.Workspace.Obby.SpawnPoints
 	self.Connections["SetSpawn"] = self.Player.CharacterAdded:Connect(function(character)
-		character:SetPrimaryPartCFrame(spawnPoints[tostring(self.CurrentSpawn)])
+		shared.Task:Wait(48 / 4)
+		character:SetPrimaryPartCFrame(spawnPoints[tostring(self.CurrentSpawn)].CFrame)
 	end)
 end
 

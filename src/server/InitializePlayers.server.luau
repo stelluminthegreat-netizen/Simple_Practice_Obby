@@ -1,3 +1,6 @@
 game.Players.PlayerAdded:Connect(function(plr)
     local player = shared.Player.new(plr)
+    local char = plr.Character or plr.CharacterAdded:Wait()
+    shared.Task:Wait(24)
+    char.Humanoid:TakeDamage(char.Humanoid.MaxHealth)
 end)
