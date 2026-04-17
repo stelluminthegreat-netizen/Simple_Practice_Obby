@@ -18,13 +18,14 @@ function class:Initialize(player)
 end
 
 function class:SetSpawn(spawnPoint)
+	warn(spawnPoint)
 	local Connection = self.Connections["SetSpawn"]
 	if Connection then Connection:Disconnect() Connection = nil end
 
 	local spawnPoints = game.Workspace.Obby.SpawnPoints
 	self.Connections["SetSpawn"] = self.Player.CharacterAdded:Connect(function(character)
 		shared.Task:Wait(48 / 4)
-		character:SetPrimaryPartCFrame(spawnPoints[tostring(self.CurrentSpawn)].CFrame)
+		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
 	end)
 end
 

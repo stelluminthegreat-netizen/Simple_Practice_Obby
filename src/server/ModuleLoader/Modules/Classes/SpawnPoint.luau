@@ -33,6 +33,7 @@ function  class:AssignPlayerSpawn(name)
 end
 
 function class:SetPlayerSpawnPoint(playerObject)
+	playerObject.CurrentSpawn = self.SpawnPoint
 	playerObject:SetSpawn(self.SpawnPoint)
 end
 
