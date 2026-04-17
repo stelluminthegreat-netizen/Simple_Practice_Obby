@@ -14,7 +14,7 @@ function  class:Initialize(plr)
 	self.Speed = self.Character.Humanoid.Speed
 	self.JumpHeight = self.Character.Humanoid.JumpHeight
 	self.MaxHealth = 100
-	self.NormalSpeed = 16
+	self.WalkSpeed = 16
 	self.NormalJumpHeight = 7.2
 end
 
