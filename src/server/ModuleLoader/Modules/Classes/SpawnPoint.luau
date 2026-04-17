@@ -2,6 +2,7 @@ local class = {}
 class.__index = class
 
 function class.new(platform)
+	print("New Obby")
 	local self = setmetatable(platform:GetAttributes(), class)
 	self.AssignedPlayers = {}
 	self.Platform = platform
