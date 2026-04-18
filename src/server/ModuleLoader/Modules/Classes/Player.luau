@@ -25,6 +25,7 @@ function class:SetSpawn(spawnPoint)
 	self.Connections["SetSpawn"] = self.Player.CharacterAdded:Connect(function(character)
 		shared.Task:Wait(48 / 4)
 		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
+		self.Character = shared.Character.new(self.Player) 
 	end)
 end
 
