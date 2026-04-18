@@ -1,6 +1,6 @@
 local class = {}
 class.__index = class
-local functions = require(shared.ObstacleFunctions)
+local functions = require(script.Parent.Parent.Data.ObstacleFunctions)
 
 function class.new(model)
 	local self = setmetatable(model:GetAttributes(), class)

@@ -16,6 +16,7 @@ function self.start()
          for _, obstacle in obby:GetDescendants() do
             if not obstacle:HasTag("Obstacle") then continue end
             local Obstacle = shared.Obstacle.new(obstacle)
+            print(Obstacle)
          end
     end
 end
