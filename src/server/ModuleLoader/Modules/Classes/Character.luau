@@ -14,17 +14,16 @@ function  class:Initialize(plr)
 	self.Player = plr
 	self.Character = plr.Character or plr.CharacterAdded:Wait()
 	self.JumpHeight = self.Character.Humanoid.JumpHeight
-	self.Health = self.Character.Humanoid.Health
+	self.Humanoid = self.Character.Humanoid
 	self.MaxHealth = 100
 	self.WalkSpeed = 16
 	self.NormalJumpHeight = 7.2
 end
 
 function  class:IncrementHealth(value)
-	if self.Health <= 0 then return false end
-	self.Health += value
-	self.Character.Humanoid.Health += value
-	return self.Health
+	if self.Humanoid.Health <= 0 then return false end
+	self.Humanoid.Health += value
+	return self.Humanoid.Health
 end
 
 function class:IncrementSpeed(value)
