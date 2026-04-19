@@ -4,12 +4,13 @@ return {
     ["Damage"] = function(obstacle)
         for index, part in obstacle.Model:GetDescendants() do
             if part.Name ~= "DamagePart" then continue end
+            print("Damage Part found")
             local size = Vector3.new(1, 1, 1)
-            shared.Thread:Spawn(function()
+            shared.Threads:Spawn(function()
                 while true do
                     shared.Task:Wait(48 / 4)
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
-            
+                    print(inRange)
                     for _, Part in inRange do
                         if not Part.Parent:FindFirstChild("Humanoid") then print(Part.Parent:GetChildren()) return end
                         if obstacle.DamagingList[part.Parent.Name] then print(obstacle.DamagingList) return end
@@ -42,9 +43,7 @@ return {
         local tweenInfo2 = TweenInfo.new(obstacle.RepositionSpeed)
         local tween2 = tweenService:Create(reference, tweenInfo2, goal2)
         
-        print(reference)
         while true do
-            print("Start")
             tween1:Play()
             tween1.Completed:Wait()
 
