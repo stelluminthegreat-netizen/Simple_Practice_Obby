@@ -26,9 +26,6 @@ return {
     end,
 
     ["Reposition"] = function(obstacle)     
-        
-        -- USE ALIGN POSITION.
-
         obstacle.OriginalPosition = obstacle.Model.Reference.Position
         local reference = obstacle.Model.Reference
 
@@ -54,6 +51,17 @@ return {
     end,
 
     ["Reorient"] = function(obstacle)
-        -- USE ALIGN ORIENTATION
+        shared.Threads:Spawn(function()
+            while true do
+                obstacle.Orientation = obstacle.Model.Reference.Orientation
+                local reference = obstacle.Model.Reference
+
+                local goal1 = { Orientation = obstacle.Orientation + obstacle.TargetOrientation }
+                local tweenInfo1 = TweenInfo.new(obstacle.OrientationSpeed)
+                local tween1 = tweenService:Create(reference, tweenInfo1, goal1)
+                tween1:Play()
+                tween1.Completed:Wait()
+            end
+        end)
     end
 }
