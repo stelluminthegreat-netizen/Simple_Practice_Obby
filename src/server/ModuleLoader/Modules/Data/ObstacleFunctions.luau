@@ -19,19 +19,24 @@ return {
         end
     end,
 
-    ["Reposition"] = function(obstacle)        
-        obstacle.OriginalPosition = obstacle.Model.PrimaryPart.Position
-        local primary = obstacle.Model.PrimaryPart
+    ["Reposition"] = function(obstacle)     
+        
+        -- USE ALIGN POSITION.
 
-        local goal1 = { CFrame = CFrame.new(obstacle.TargetPos) }
+        obstacle.OriginalPosition = obstacle.Model.Reference.Position
+        local reference = obstacle.Model.Reference
+
+        local goal1 = { CFrame = CFrame.new(obstacle.OriginalPosition - obstacle.TargetPos) }
         local tweenInfo1 = TweenInfo.new(obstacle.RepositionSpeed)
-        local tween1 = tweenService:Create(primary, tweenInfo1, goal1)
+        local tween1 = tweenService:Create(reference, tweenInfo1, goal1)
 
-        local goal2 = { CFrame = CFrame.new(obstacle.OriginalPosition) }
+        local goal2 = { CFrame = CFrame.new(obstacle.OriginalPosition + obstacle.TargetPos) }
         local tweenInfo2 = TweenInfo.new(obstacle.RepositionSpeed)
-        local tween2 = tweenService:Create(primary, tweenInfo2, goal2)
-       
+        local tween2 = tweenService:Create(reference, tweenInfo2, goal2)
+        
+        print(reference)
         while true do
+            print("Start")
             tween1:Play()
             tween1.Completed:Wait()
 
@@ -43,6 +48,6 @@ return {
     end,
 
     ["Reorient"] = function(obstacle)
-        
+        -- USE ALIGN ORIENTATION
     end
 }
