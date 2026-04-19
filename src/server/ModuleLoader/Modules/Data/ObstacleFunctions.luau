@@ -8,11 +8,10 @@ return {
             shared.Threads:Spawn(function()
                 while true do
                     shared.Task:Wait(48 / 8)
-                    warn("Running")
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
                     for _, Part in inRange do
-                        if not Part.Parent:FindFirstChild("Humanoid") then print(Part.Parent:GetChildren()) continue end
-                        if obstacle.DamagingList[part.Parent.Name] then print(obstacle.DamagingList) continue end
+                        if not Part.Parent:FindFirstChild("Humanoid") then continue end
+                        if obstacle.DamagingList[part.Parent.Name] then continue end
                         
                         local name = Part.Parent.Name
                         local character = shared.Character.Characters[name]
@@ -29,38 +28,34 @@ return {
         obstacle.OriginalPosition = obstacle.Model.Reference.Position
         local reference = obstacle.Model.Reference
 
-        local goal1 = { CFrame = CFrame.new(obstacle.OriginalPosition - obstacle.TargetPos) }
-        local tweenInfo1 = TweenInfo.new(obstacle.RepositionSpeed)
-        local tween1 = tweenService:Create(reference, tweenInfo1, goal1)
+        local pos1 = obstacle.OriginalPosition - obstacle.TargetPos
+        local pos2 = obstacle.OriginalPosition + obstacle.TargetPos
 
-        local goal2 = { CFrame = CFrame.new(obstacle.OriginalPosition + obstacle.TargetPos) }
-        local tweenInfo2 = TweenInfo.new(obstacle.RepositionSpeed)
-        local tween2 = tweenService:Create(reference, tweenInfo2, goal2)
-        
         shared.Threads:Spawn(function()
             while true do
-                tween1:Play()
-                tween1.Completed:Wait()
+                reference.Position = pos1
 
-                shared.Task:Wait(24)
+                shared.Task:Wait(obstacle.RepositionSpeed * 48)
 
-                tween2:Play()
-                tween2.Completed:Wait()
+                reference.Position = pos2
+
+                shared.Task:Wait(obstacle.RepositionSpeed * 48)
             end
         end)
     end,
 
     ["Reorient"] = function(obstacle)
         shared.Threads:Spawn(function()
-            while true do
-                obstacle.Orientation = obstacle.Model.Reference.Orientation
-                local reference = obstacle.Model.Reference
+            obstacle.Orientation = obstacle.Model.Reference.Orientation
+            local reference = obstacle.Model.Reference
+            local currentOrientation = reference.Orientation
 
-                local goal1 = { Orientation = obstacle.Orientation + obstacle.TargetOrientation }
-                local tweenInfo1 = TweenInfo.new(obstacle.OrientationSpeed)
-                local tween1 = tweenService:Create(reference, tweenInfo1, goal1)
-                tween1:Play()
-                tween1.Completed:Wait()
+            while true do
+                shared.Task:Wait(1)
+
+                currentOrientation += (obstacle.TargetOrientation * Vector3.new(obstacle.OrientationSpeed, obstacle.OrientationSpeed, obstacle.OrientationSpeed)) 
+                print(currentOrientation)
+                reference.Orientation = currentOrientation
             end
         end)
     end
