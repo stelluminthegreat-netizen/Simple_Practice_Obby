@@ -4,17 +4,24 @@ return {
     ["Damage"] = function(obstacle)
         for index, part in obstacle.Model:GetDescendants() do
             if part.Name ~= "DamagePart" then continue end
-            obstacle.Connections[part] = part.Touched:Connect(function(Part)
-                if not Part.Parent:FindFirstChild("Humanoid") then print(Part.Parent:GetChildren()) return end
-                if obstacle.DamagingList[part.Parent.Name] then print(obstacle.DamagingList) return end
-                
-                print(obstacle.DamagingList)
-                local name = Part.Parent.Name
-                local character = shared.Character.Characters[name]
-                obstacle.DamagingList[name] = character
-                character:IncrementHealth(-obstacle.Damage)
-                obstacle.DamagingList[name] = nil
-                print(character)
+            local size = Vector3.new(1, 1, 1)
+            shared.Thread:Spawn(function()
+                while true do
+                    local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
+            
+                    for _, Part in inRange do
+                        if not Part.Parent:FindFirstChild("Humanoid") then print(Part.Parent:GetChildren()) return end
+                        if obstacle.DamagingList[part.Parent.Name] then print(obstacle.DamagingList) return end
+                        
+                        print(obstacle.DamagingList)
+                        local name = Part.Parent.Name
+                        local character = shared.Character.Characters[name]
+                        obstacle.DamagingList[name] = character
+                        character:IncrementHealth(-obstacle.Damage)
+                        obstacle.DamagingList[name] = nil
+                        print(character)
+                    end
+                end
             end)
         end
     end,
