@@ -17,7 +17,7 @@ return {
                         local character = shared.Character.Characters[name]
                         obstacle.DamagingList[name] = character
                         character:IncrementHealth(-obstacle.Damage)
-                        obstacle.DamagingList[name] = nil
+                        obstacle.DamagingList[name] = nil 
                     end
                 end
             end)
