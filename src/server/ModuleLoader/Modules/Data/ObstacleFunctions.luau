@@ -7,6 +7,7 @@ return {
             local size = Vector3.new(1, 1, 1)
             shared.Thread:Spawn(function()
                 while true do
+                    shared.Task:Wait(48 / 4)
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
             
                     for _, Part in inRange do
