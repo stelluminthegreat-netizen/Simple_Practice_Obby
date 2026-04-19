@@ -4,24 +4,21 @@ return {
     ["Damage"] = function(obstacle)
         for index, part in obstacle.Model:GetDescendants() do
             if part.Name ~= "DamagePart" then continue end
-            print("Damage Part found")
             local size = Vector3.new(1, 1, 1)
             shared.Threads:Spawn(function()
                 while true do
-                    shared.Task:Wait(48 / 4)
+                    shared.Task:Wait(48 / 8)
+                    warn("Running")
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
-                    print(inRange)
                     for _, Part in inRange do
-                        if not Part.Parent:FindFirstChild("Humanoid") then print(Part.Parent:GetChildren()) return end
-                        if obstacle.DamagingList[part.Parent.Name] then print(obstacle.DamagingList) return end
+                        if not Part.Parent:FindFirstChild("Humanoid") then print(Part.Parent:GetChildren()) continue end
+                        if obstacle.DamagingList[part.Parent.Name] then print(obstacle.DamagingList) continue end
                         
-                        print(obstacle.DamagingList)
                         local name = Part.Parent.Name
                         local character = shared.Character.Characters[name]
                         obstacle.DamagingList[name] = character
                         character:IncrementHealth(-obstacle.Damage)
                         obstacle.DamagingList[name] = nil
-                        print(character)
                     end
                 end
             end)
@@ -43,15 +40,17 @@ return {
         local tweenInfo2 = TweenInfo.new(obstacle.RepositionSpeed)
         local tween2 = tweenService:Create(reference, tweenInfo2, goal2)
         
-        while true do
-            tween1:Play()
-            tween1.Completed:Wait()
+        shared.Threads:Spawn(function()
+            while true do
+                tween1:Play()
+                tween1.Completed:Wait()
 
-            shared.Task:Wait(24)
+                shared.Task:Wait(24)
 
-            tween2:Play()
-            tween2.Completed:Wait()
-        end
+                tween2:Play()
+                tween2.Completed:Wait()
+            end
+        end)
     end,
 
     ["Reorient"] = function(obstacle)
