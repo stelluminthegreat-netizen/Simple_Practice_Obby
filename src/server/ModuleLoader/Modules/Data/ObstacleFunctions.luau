@@ -24,7 +24,8 @@ return {
         end
     end,
 
-    ["Reposition"] = function(obstacle)     
+    ["Reposition"] = function(obstacle)
+        shared.Task:Wait(obstacle.RepositionWait * 48)    
         obstacle.OriginalPosition = obstacle.Model.Reference.Position
         local reference = obstacle.Model.Reference
 
@@ -45,6 +46,7 @@ return {
     end,
 
     ["Reorient"] = function(obstacle)
+        shared.Task:Wait(obstacle.ReorientWait * 48)   
         shared.Threads:Spawn(function()
             obstacle.Orientation = obstacle.Model.Reference.Orientation
             local reference = obstacle.Model.Reference
