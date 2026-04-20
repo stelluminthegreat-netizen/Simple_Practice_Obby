@@ -16,5 +16,4 @@
     -> Speed
     -> Jump Height
 
-4. Resize function
-5. SwitchCollision function (Also switches transparency from 0.0 to 0.5)
+4. StartAfter attribute
