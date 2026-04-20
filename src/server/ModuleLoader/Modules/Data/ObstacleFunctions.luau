@@ -35,18 +35,18 @@ return {
             shared.Task:Wait(obstacle.RepositionWait * 48)   
             while true do
                 while reference.Position ~= pos1 do
-                    shared.Task:Wait(1)
-                    reference.Position += obstacle.RepositionIncrementSpeed
-                end
-
-                shared.Task:Wait(obstacle.RepositionSpeed * 48)
-
-                while reference.Position ~= pos2 do
-                    shared.Task:Wait(1)
+                    shared.Task:Wait(obstacle.RepositionWait * 48)
                     reference.Position -= obstacle.RepositionIncrementSpeed
                 end
 
-                shared.Task:Wait(obstacle.RepositionSpeed * 48)
+                shared.Task:Wait(obstacle.WaitPerReposition * 48)
+
+                while reference.Position ~= pos2 do
+                    shared.Task:Wait(obstacle.RepositionWait * 48)
+                    reference.Position += obstacle.RepositionIncrementSpeed
+                end
+
+                shared.Task:Wait(obstacle.WaitPerReposition * 48)
             end
         end)
     end,
