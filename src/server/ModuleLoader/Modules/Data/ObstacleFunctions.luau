@@ -7,7 +7,7 @@ return {
             local size = Vector3.new(1, 1, 1)
             shared.Threads:Spawn(function()
                 while true do
-                    shared.Task:Wait(48 / 8)
+                    shared.Task:Wait(48 / 12)
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
                     for _, Part in inRange do
                         if not Part.Parent:FindFirstChild("Humanoid") then continue end
@@ -24,8 +24,7 @@ return {
         end
     end,
 
-    ["Reposition"] = function(obstacle)
-        shared.Task:Wait(obstacle.RepositionWait * 48)    
+    ["Reposition"] = function(obstacle) 
         obstacle.OriginalPosition = obstacle.Model.Reference.Position
         local reference = obstacle.Model.Reference
 
@@ -33,12 +32,19 @@ return {
         local pos2 = obstacle.OriginalPosition + obstacle.TargetPos
 
         shared.Threads:Spawn(function()
+            shared.Task:Wait(obstacle.RepositionWait * 48)   
             while true do
-                reference.Position = pos1
+                while reference.Position ~= pos1 do
+                    shared.Task:Wait(1)
+                    reference.Position += obstacle.RepositionIncrementSpeed
+                end
 
                 shared.Task:Wait(obstacle.RepositionSpeed * 48)
 
-                reference.Position = pos2
+                while reference.Position ~= pos2 do
+                    shared.Task:Wait(1)
+                    reference.Position -= obstacle.RepositionIncrementSpeed
+                end
 
                 shared.Task:Wait(obstacle.RepositionSpeed * 48)
             end
@@ -46,8 +52,8 @@ return {
     end,
 
     ["Reorient"] = function(obstacle)
-        shared.Task:Wait(obstacle.ReorientWait * 48)   
         shared.Threads:Spawn(function()
+            shared.Task:Wait(obstacle.ReorientWait * 48)   
             obstacle.Orientation = obstacle.Model.Reference.Orientation
             local reference = obstacle.Model.Reference
             local currentOrientation = reference.Orientation
@@ -55,8 +61,7 @@ return {
             while true do
                 shared.Task:Wait(1)
 
-                currentOrientation += (obstacle.TargetOrientation * Vector3.new(obstacle.OrientationSpeed, obstacle.OrientationSpeed, obstacle.OrientationSpeed)) 
-                print(currentOrientation)
+                currentOrientation += (obstacle.TargetOrientation * Vector3.new(obstacle.OrientationSpeed, obstacle.OrientationSpeed, obstacle.OrientationSpeed))
                 reference.Orientation = currentOrientation
             end
         end)

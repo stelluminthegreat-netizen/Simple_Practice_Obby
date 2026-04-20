@@ -16,4 +16,6 @@
     -> Speed
     -> Jump Height
 
-4. StartAfter attribute
+4. Make it so that the reference part of reposition increments its position instead of teleporting
+    -> PROS: More control over speed
+    -> CONS: Might get more laggy
