@@ -19,3 +19,5 @@
 4. Make it so that the reference part of reposition increments its position instead of teleporting
     -> PROS: More control over speed
     -> CONS: Might get more laggy
+
+5. Highest level reached, Current level
