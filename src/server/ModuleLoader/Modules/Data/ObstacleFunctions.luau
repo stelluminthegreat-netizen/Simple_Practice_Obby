@@ -32,7 +32,7 @@ return {
         local pos2 = obstacle.OriginalPosition + obstacle.TargetPos
 
         shared.Threads:Spawn(function()
-            shared.Task:Wait(obstacle.RepositionWait * 48)   
+            shared.Task:Wait((obstacle.PreRunWait * 1/48) * 48)   
             while true do
                 while reference.Position ~= pos1 do
                     shared.Task:Wait(obstacle.RepositionWait * 48)
@@ -53,7 +53,7 @@ return {
 
     ["Reorient"] = function(obstacle)
         shared.Threads:Spawn(function()
-            shared.Task:Wait(obstacle.ReorientWait * 48)   
+            shared.Task:Wait((obstacle.PreRunWait * 1/48) * 48)   
             obstacle.Orientation = obstacle.Model.Reference.Orientation
             local reference = obstacle.Model.Reference
             local currentOrientation = reference.Orientation
