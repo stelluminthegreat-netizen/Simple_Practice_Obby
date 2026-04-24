@@ -22,3 +22,6 @@
 
 5. Highest level reached, Current level
     - IMPLEMENT DATA
+    - IMPLEMENT Highest Stage Reached
+
+6. Respawn should be instant and has that subaro revive sound effect

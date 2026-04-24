@@ -42,8 +42,9 @@ end
 
 function class:UpdatePlayerHighestStage(playerObject)
 	local data = dataManager.profiles[playerObject.Player].Data
-	if data.HighestStage >= self.SpawnPoint then return end
+	if data.HighestStage >= tonumber(self.SpawnPoint) then return end
 	data.HighestStage += 1
+	print(data)
 	dataManager.UpdateLeaderstats(
 		playerObject.Player.Name,
 		"HighestStage", 

@@ -4,14 +4,14 @@ local runService = game:GetService("RunService")
 local serverScriptService = game:GetService("ServerScriptService")
 
 -- Profile store
-local profileStore = require(game.ServerScriptService.externalLibraries.ProfileStore)
+local profileStore = require(game.ServerScriptService.Server.Data.ProfileStore)
 
 function getStoreName()
 	return runService:IsStudio() and "test" or "live"
 end
 
-local template = require(serverScriptService.core.data.dataTemplate)
-local dataManager = require(serverScriptService.core.data.dataManager)
+local template = require(serverScriptService.Server.Data.DataTemplate)
+local dataManager = require(serverScriptService.Server.Data.DataManager)
 
 -- Access profile store
 local playerStore = profileStore.New(getStoreName(), template)
@@ -24,6 +24,7 @@ function Initializer(player: Player, profile: typeof(playerStore:StartSessionAsy
 	local highestStage = Instance.new("NumberValue", leaderstats)
 	highestStage.Name = "HighestStage"
 	highestStage.Value = profile.Data.HighestStage
+	print(profile.Data)
 end
 
 function playerAdded(player: Player)
