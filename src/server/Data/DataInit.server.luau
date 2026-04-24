@@ -21,11 +21,9 @@ function Initializer(player: Player, profile: typeof(playerStore:StartSessionAsy
 	local leaderstats = Instance.new("Folder", player)
 	leaderstats.Name = "leaderstats"
 	
-	local fenoy = Instance.new("NumberValue", leaderstats)
-	fenoy.Name = "fenoy"
-	fenoy.Value = profile.Data.fenoy
-	
-	dataManager.updateClient(player)
+	local highestStage = Instance.new("NumberValue", leaderstats)
+	highestStage.Name = "HighestStage"
+	highestStage.Value = profile.Data.HighestStage
 end
 
 function playerAdded(player: Player)

@@ -1,3 +1,5 @@
+local dataManager = require(game.ServerScriptService.Server.Data.DataManager)
+
 local class = {}
 class.__index = class
 
@@ -19,6 +21,7 @@ function  class:Initialize()
 		if self:IsPlayerAssigned(characterName) == true then print("Player assigned") return end
 		self:AssignPlayerSpawn(characterName)
 		self:SetPlayerSpawnPoint(self.AssignedPlayers[characterName])
+		self:UpdatePlayerHighestStage(self.AssignedPlayers[characterName])
 	end)
 end
 
@@ -35,6 +38,19 @@ end
 function class:SetPlayerSpawnPoint(playerObject)
 	playerObject.CurrentSpawn = self.SpawnPoint
 	playerObject:SetSpawn(self.SpawnPoint)
+end
+
+function class:UpdatePlayerHighestStage(playerObject)
+	local data = dataManager.profiles[playerObject.Player].Data
+	if data.HighestStage >= self.SpawnPoint then return end
+	data.HighestStage += 1
+	dataManager.UpdateLeaderstats(
+		playerObject.Player.Name,
+		"HighestStage", 
+		function(player, stats)
+			stats.Value += 1
+		end
+	)
 end
 
 return class
