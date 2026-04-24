@@ -22,6 +22,7 @@ function  class:Initialize()
 		self:AssignPlayerSpawn(characterName)
 		self:SetPlayerSpawnPoint(self.AssignedPlayers[characterName])
 		self:UpdatePlayerHighestStage(self.AssignedPlayers[characterName])
+		if self.Platform.Parent:HasTag("Final") then self:Win(shared.Player.Players[characterName]) end
 	end)
 end
 
@@ -48,6 +49,23 @@ function class:UpdatePlayerHighestStage(playerObject)
 	dataManager.UpdateLeaderstats(
 		playerObject.Player.Name,
 		"HighestStage", 
+		function(player, stats)
+			stats.Value += 1
+		end
+	)
+end
+
+function class:Win(playerObject)
+	-- Special Effects or whatever the hel
+	self:UpdatePlayerWins(playerObject)
+end
+
+function class:UpdatePlayerWins(playerObject)
+	local data = dataManager.profiles[playerObject.Player].Data
+	data.Wins += 1
+	dataManager.UpdateLeaderstats(
+		playerObject.Player.Name,
+		"Wins", 
 		function(player, stats)
 			stats.Value += 1
 		end
