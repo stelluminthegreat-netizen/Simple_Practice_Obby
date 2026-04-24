@@ -7,7 +7,6 @@ dataManager.profiles = {}
 function  dataManager.UpdateLeaderstats(plrName, statsName, changes)
 	local player = Players[plrName].Player
 	local stats = player.leaderstats[statsName]
-	print("Called")
 	changes(player, stats)
 end
 return dataManager
