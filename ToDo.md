@@ -21,3 +21,4 @@
     -> CONS: Might get more laggy
 
 5. Highest level reached, Current level
+    - IMPLEMENT DATA
