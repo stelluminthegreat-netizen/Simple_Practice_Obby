@@ -24,7 +24,10 @@ function Initializer(player: Player, profile: typeof(playerStore:StartSessionAsy
 	local highestStage = Instance.new("NumberValue", leaderstats)
 	highestStage.Name = "HighestStage"
 	highestStage.Value = profile.Data.HighestStage
-	print(profile.Data)
+
+		local highestStage = Instance.new("NumberValue", leaderstats)
+	highestStage.Name = "Wins"
+	highestStage.Value = profile.Data.Wins
 end
 
 function playerAdded(player: Player)
