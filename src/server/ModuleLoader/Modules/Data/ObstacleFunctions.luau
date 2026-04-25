@@ -7,7 +7,7 @@ return {
             local size = Vector3.new(1, 1, 1)
             shared.Threads:Spawn(function()
                 while true do
-                    shared.Task:Wait(48 / 12)
+                    shared.Task:Wait(48 / 24)
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
                     for _, Part in inRange do
                         if not Part.Parent:FindFirstChild("Humanoid") then continue end
