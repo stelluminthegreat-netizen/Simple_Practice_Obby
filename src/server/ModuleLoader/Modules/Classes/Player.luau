@@ -26,6 +26,11 @@ function class:SetSpawn(spawnPoint)
 		shared.Task:Wait(48 / 4)
 		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
 		self.Character = shared.Character.new(self.Player) 
+		local audio = game.ReplicatedStorage.Audios.Revive:Clone()
+		audio.Parent = character
+		audio:Play()
+		audio.Ended:Wait()
+		audio:Destroy()
 	end)
 end
 
