@@ -21,6 +21,7 @@ function class:SetSpawn(spawnPoint)
 	local spawnPoints = game.Workspace.Obby.SpawnPoints 
 	local character = self.Character.Character
 	
+	print(spawnPoint)
 	self.Character.Died:Connect(function()
 		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
 		local audio = game.ReplicatedStorage.Audios.Revive:Clone()
