@@ -18,20 +18,18 @@ function class:Initialize(player)
 end
 
 function class:SetSpawn(spawnPoint)
-	local Connection = self.Connections["SetSpawn"]
-	if Connection then Connection:Disconnect() Connection = nil end
-
-	local spawnPoints = game.Workspace.Obby.SpawnPoints
-	self.Connections["SetSpawn"] = self.Player.CharacterAdded:Connect(function(character)
-		shared.Task:Wait(48 / 4)
+	local spawnPoints = game.Workspace.Obby.SpawnPoints 
+	local character = self.Character.Character
+	
+	self.Character.Died:Connect(function()
 		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
-		self.Character = shared.Character.new(self.Player) 
 		local audio = game.ReplicatedStorage.Audios.Revive:Clone()
 		audio.Parent = character
 		audio:Play()
 		audio.Ended:Wait()
 		audio:Destroy()
 	end)
+
 end
 
 return class

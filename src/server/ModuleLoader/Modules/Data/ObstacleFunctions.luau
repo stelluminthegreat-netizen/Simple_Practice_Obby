@@ -16,7 +16,7 @@ return {
                         local name = Part.Parent.Name
                         local character = shared.Character.Characters[name]
                         obstacle.DamagingList[name] = character
-                        character:IncrementHealth(-obstacle.Damage)
+                        character:Kill()
                         obstacle.DamagingList[name] = nil 
                     end
                 end
