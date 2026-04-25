@@ -31,19 +31,56 @@ return {
         local pos1 = obstacle.OriginalPosition - obstacle.TargetPos
         local pos2 = obstacle.OriginalPosition + obstacle.TargetPos
 
+        local x1 = pos1.X
+        local y1 = pos1.Y
+        local z1 = pos1.Z
+
+        local x2 =  pos2.X
+        local y2 = pos2.Y
+        local z2 = pos2.Z
+
+        local incrementX = obstacle.RepositionIncrementSpeed.X
+        local incrementY = obstacle.RepositionIncrementSpeed.Y
+        local incrementZ = obstacle.RepositionIncrementSpeed.Z
+
         shared.Threads:Spawn(function()
             shared.Task:Wait((obstacle.PreRunWait or 1/48) * 48)   
             while true do
                 while reference.Position ~= pos1 do
                     shared.Task:Wait(obstacle.RepositionWait * 48)
-                    reference.Position -= obstacle.RepositionIncrementSpeed
+                    local referenceX = reference.Position.X
+                    local referenceY = reference.Position.Y
+                    local referenceZ = reference.Position.Z
+
+                    
+                    local newX = referenceX
+                    local newY = referenceY
+                    local newZ = referenceZ
+
+                    if referenceX ~= x1 then newX = reference.Position.X - incrementX end
+                    if referenceY ~= y1 then newY = reference.Position.Y - incrementY end
+                    if referenceZ ~= z1 then newZ = reference.Position.Z - incrementZ end
+
+                    reference.Position = Vector3.new(newX, newY, newZ)
                 end
 
                 shared.Task:Wait((obstacle.WaitPerReposition or 1/48)* 48)
 
                 while reference.Position ~= pos2 do
                     shared.Task:Wait(obstacle.RepositionWait * 48)
-                    reference.Position += obstacle.RepositionIncrementSpeed
+                    local referenceX = reference.Position.X
+                    local referenceY = reference.Position.Y
+                    local referenceZ = reference.Position.Z
+                    
+                    local newX = referenceX
+                    local newY = referenceY
+                    local newZ = referenceZ
+
+                    if referenceX ~= x2 then newX = reference.Position.X + incrementX end
+                    if referenceY ~= y2 then newY = reference.Position.Y + incrementY end
+                    if referenceX ~= z2 then newZ = reference.Position.Z + incrementZ end
+
+                    reference.Position = Vector3.new(newX, newY, newZ)
                 end
 
                 shared.Task:Wait((obstacle.WaitPerReposition or 1/48) * 48)
