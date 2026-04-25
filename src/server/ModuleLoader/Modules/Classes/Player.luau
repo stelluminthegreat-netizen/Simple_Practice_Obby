@@ -19,11 +19,13 @@ function class:Initialize(player)
 end
 
 function class:SetSpawn(spawnPoint)
+	local DiedConn = self.Connections["Died"]
+	if DiedConn then DiedConn:Disconnect() end
 	local spawnPoints = game.Workspace.Obby.SpawnPoints 
 	local character = self.Character.Character
 	
 	print(spawnPoint)
-	self.Character.Died:Connect(function()
+	self.Connections["Died"] = self.Character.Died:Connect(function()
 		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
 		if self.DeathFunctionsRunning == false then self.Died(self, character) end
 	end)
