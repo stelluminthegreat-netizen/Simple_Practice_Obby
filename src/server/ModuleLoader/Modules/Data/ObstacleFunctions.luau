@@ -4,7 +4,7 @@ return {
     ["Damage"] = function(obstacle)
         for index, part in obstacle.Model:GetDescendants() do
             if part.Name ~= "DamagePart" then continue end
-            local size = Vector3.new(1, 1, 1)
+            local size = Vector3.new(0.2, 0.2, 0.2)
             shared.Threads:Spawn(function()
                 while true do
                     shared.Task:Wait(48 / 24)
