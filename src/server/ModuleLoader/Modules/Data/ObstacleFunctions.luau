@@ -25,6 +25,7 @@ return {
     end,
 
     ["Reposition"] = function(obstacle) 
+        -- TESTED
         obstacle.OriginalPosition = obstacle.Model.Reference.Position
         local reference = obstacle.Model.Reference
 
