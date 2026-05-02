@@ -29,7 +29,7 @@ return {
         local reference = obstacle.Model.Reference
 
         local pos1 = obstacle.OriginalPosition - obstacle.TargetPos
-        local pos2 = obstacle.OriginalPosition + obstacle.TargetPos
+        local pos2 = pos1 + obstacle.TargetPos
 
         local x1 = pos1.X
         local y1 = pos1.Y
