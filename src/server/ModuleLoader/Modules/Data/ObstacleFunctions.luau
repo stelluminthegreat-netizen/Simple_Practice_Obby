@@ -50,8 +50,6 @@ return {
             if not running then obstacle.RepositionStart = true end
             shared.Task:Wait((obstacle.PreRunWait or 1/48) * 48)   
             while true do
-                shared.Task:Wait((obstacle.WaitPerReposition or 1/48) * 48)
-                
                 while reference.Position ~= pos1 do
                     shared.Task:Wait(obstacle.RepositionWait * 48)
                     local referenceX = reference.Position.X
@@ -88,6 +86,9 @@ return {
 
                     reference.Position = Vector3.new(newX, newY, newZ)
                 end
+                
+                shared.Task:Wait((obstacle.WaitPerReposition or 1/48) * 48)
+                
             end
         end)
     end,
