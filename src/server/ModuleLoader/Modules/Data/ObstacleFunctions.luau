@@ -45,6 +45,9 @@ return {
         local incrementZ = obstacle.RepositionIncrementSpeed.Z
 
         shared.Threads:Spawn(function()
+            local running = obstacle.RepositionStart
+            if running == true then return end
+            if not running then obstacle.RepositionStart = true end
             shared.Task:Wait((obstacle.PreRunWait or 1/48) * 48)   
             while true do
                 shared.Task:Wait((obstacle.WaitPerReposition or 1/48) * 48)
