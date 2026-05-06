@@ -22,6 +22,7 @@ function class:SetSpawn(spawnPoint)
 	local DiedConn = self.Connections["Died"]
 	if DiedConn then DiedConn:Disconnect() end
 	local spawnPoints = game.Workspace.Obby.spawnPoints
+	local character = self.Character.Character
 	
 	self.Connections["Died"] = self.Character.Died:Connect(function()
 		self:Teleport(spawnPoints[tostring(spawnPoint)].CFrame)
