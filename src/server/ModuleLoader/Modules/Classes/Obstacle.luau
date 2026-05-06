@@ -7,6 +7,7 @@ function class.new(model)
 	self.Model = model
 	self.Connections = {}
 	self.DamagingList = {}
+	self.TeleportingList = {}
 	self:Initialize()
 	return self
 end

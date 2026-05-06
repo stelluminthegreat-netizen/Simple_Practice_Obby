@@ -107,5 +107,28 @@ return {
                 reference.Orientation = currentOrientation
             end
         end)
+    end,
+
+    ["Teleport"] = function(obstacle)
+        for index, part in obstacle.Model:GetDescendants() do
+            if part.Name ~= "TeleportPart" then continue end
+            local size = Vector3.new(0.2, 0.2, 0.2)
+            shared.Threads:Spawn(function()
+                while true do
+                    shared.Task:Wait(48 / 24)
+                    local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
+                    for _, Part in inRange do
+                        if not Part.Parent:FindFirstChild("Humanoid") then continue end
+                        if obstacle.TeleportingList[part.Parent.Name] then continue end
+                        
+                        local name = Part.Parent.Name
+                        local player = shared.Player.Players[name]
+                        obstacle.TeleportingList[name] = player
+                        player:Teleport(part.Destination.CFrame)
+                        obstacle.TeleportingList[name] = nil 
+                    end
+                end
+            end)
+        end
     end
 }
