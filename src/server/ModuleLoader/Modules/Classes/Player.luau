@@ -21,15 +21,18 @@ end
 function class:SetSpawn(spawnPoint)
 	local DiedConn = self.Connections["Died"]
 	if DiedConn then DiedConn:Disconnect() end
-	local spawnPoints = game.Workspace.Obby.SpawnPoints 
-	local character = self.Character.Character
+	local spawnPoints = game.Workspace.Obby.spawnPoints
 	
-	print(spawnPoint)
 	self.Connections["Died"] = self.Character.Died:Connect(function()
-		character:SetPrimaryPartCFrame(spawnPoints[tostring(spawnPoint)].CFrame)
+		self:Teleport(spawnPoints[tostring(spawnPoint)].CFrame)
 		if self.DeathFunctionsRunning == false then self.Died(self, character) end
 	end)
 
+end
+
+function class:Teleport(cframe)
+	local character = self.Character.Character
+	character:SetPrimaryPartCFrame(cframe)
 end
 
 function class.Died(Character, character)
