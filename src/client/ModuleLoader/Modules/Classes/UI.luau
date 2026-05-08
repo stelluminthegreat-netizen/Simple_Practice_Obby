@@ -8,7 +8,6 @@ function class.new(UI)
 	local self = setmetatable(UI:GetAttributes(), class)
 	self.Player = game.Players.LocalPlayer
 	self.UI = UI:Clone()
-	self.UI.Parent = self.Player.PlayerGui:WaitForChild("Main")
 	self.Connections = {}
 	self:Initialize()
 	class.UIs[self.UI.Name] = self
@@ -17,6 +16,7 @@ function class.new(UI)
 end
 
 function class:Initialize()
+	self.UI.Parent = self.Player.PlayerGui:FindFirstChild(self.Parent, true)
 	for index, attribute in self do
 		pcall(function()
 			functions[attribute](self)
