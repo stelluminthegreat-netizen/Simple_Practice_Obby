@@ -6,7 +6,10 @@ function class.new(UI)
 	local self = setmetatable(UI:GetAttributes(), class)
 	self.Player = game.Players.LocalPlayer
 	self.UI = UI:Clone()
-	self.UI.Parent = self.Player.PlayerGui.Main
+	self.UI.Parent = self.Player.PlayerGui:WaitForChild("Main")
+	self.Connections = {}
+	self:Initialize()
+
 	return self
 end
 
