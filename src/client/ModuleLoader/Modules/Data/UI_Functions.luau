@@ -23,25 +23,28 @@ function functions.Close(UI_Obj)
 end
 
 function Open(UI_Obj)
-    for index, folder in UI_Obj do
-        local UI_Folder = game.ReplicatedStorage.UIs[folder]
+    for index, folder in UI_Obj.Attributes do
+        local UI_Folder = game.ReplicatedStorage.UIs:FindFirstChild(folder)
         if not UI_Folder then continue end
 
         local Prios = {}
         local UIs = {}
-
+        
+        -- Create the UI objects and store in UIs table
         for _, ui in UI_Folder:GetChildren() do
             if not ui:HasTag("UI_Obj") then continue end
             local ui_Obj = shared.UI.new(ui)
             UIs[ui.Name] = ui_Obj
         end
 
+        -- Segregrate different priorities
         for _, ui in UIs do
             local PrioNum = ui.OpenPrio
             if not Prios[PrioNum] then Prios[PrioNum] = {} end
-            Prios.PrioNum[ui.UI.Name] = ui
+            Prios[PrioNum][ui.UI.Name] = ui 
         end
 
+        -- Initialize highest priority to lowest priority UI
         for i = 0, UI_Folder.LowestPrio.Value, 1 do
             for _, ui in Prios[i] do
                 ui:Initialize()

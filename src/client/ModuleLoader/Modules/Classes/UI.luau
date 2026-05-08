@@ -4,13 +4,14 @@ class.__index = class
 
 class.UIs = {}
 
-function class.new(UI)
+function class.new(UI, parent)
 	local self = setmetatable(UI:GetAttributes(), class)
 	self.Player = game.Players.LocalPlayer
 	self.UI = UI:Clone()
 	self.Connections = {}
-	self:Initialize()
+	self.Attributes = UI:GetAttributes()
 	class.UIs[self.UI.Name] = self
+	if parent ~= nil then self.UI.Parent = self.Player.PlayerGui:WaitForChild(parent) self:Initialize() end
 
 	return self
 end
