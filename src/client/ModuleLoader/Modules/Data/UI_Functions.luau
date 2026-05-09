@@ -1,5 +1,7 @@
 local functions = {}
 
+------------------------ [[ UNIVERSAL FUNCTIONS ]] ------------------------
+
 -- GENERAL RULES
 --[[
     1. Folders must have unique names. 
@@ -35,6 +37,16 @@ function functions.Close(UI_Obj)
     conn = UI.MouseButton1Click:Connect(function()
         Close(UI_Obj)
     end)
+end
+
+function functions.TextInput(UI_Obj)
+   local UI = UI_Obj.UI 
+   local conn = UI_Obj.Connections["FocusLost"]
+   if conn then conn:Disconnect() end
+   conn = UI.FocusLost:Connect(function(enterPressed)
+        UI_Obj.Text = UI.Text
+        print(UI_Obj)
+   end)
 end
 
 function Open(UI_Obj)
@@ -92,5 +104,13 @@ function Close(UI_Obj)
         end
     end
 end
+
+------------------------ [[ GAME SPECIFIC FUNCTIONS ]] ------------------------
+local Actions = {}
+
+function Actions.LockTargetPlrName()
+    
+end
+
 
 return functions
