@@ -1,5 +1,7 @@
 local functions = {}
-
+local player = game.Players.LocalPlayer
+local dataManager = require(player.PlayerScripts.dataManager)
+local data = dataManager.Profiles[player]
 ------------------------ [[ UNIVERSAL FUNCTIONS ]] ------------------------
 
 -- GENERAL RULES
@@ -107,11 +109,15 @@ function Close(UI_Obj)
 end
 
 ------------------------ [[ GAME SPECIFIC FUNCTIONS ]] ------------------------
-local Actions = {}
 
-function Actions.LockTargetPlrName()
+function functions.KillPlayer(UI_Obj)
+    local KillAbility = data.KillAbility
+    local UnliKillAbility = data.UnliKillAbility
+
     
 end
+
+
 
 
 return functions
