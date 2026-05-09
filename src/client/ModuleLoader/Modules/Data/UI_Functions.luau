@@ -60,7 +60,7 @@ function Open(UI_Obj)
         end
 
         -- Initialize highest priority to lowest priority UI
-        for i = 0, UI_Folder.LowestPrio.Value, 1 do
+        for i = 0, UI_Obj.OpenLowestPrio, 1 do
             for _, ui in Prios[i] do
                 ui:Initialize()
             end
