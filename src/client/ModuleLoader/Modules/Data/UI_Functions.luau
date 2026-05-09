@@ -1,6 +1,26 @@
 local functions = {}
 
+-- GENERAL RULES
+--[[
+    1. Folders must have unique names. 
+    2. Folders must have two child NumberValue.
+        -> OpenLowestPrio
+        -> CloseLowestPrio
+    3. UIs must have tag "UI_Obj"
+    4. UIs must have
+        -> OpenPrioNum
+        -> ClosePrioNum
+    5. UI must have string attribute for it's target parent name
+--]]
+
+-- ACTION RULES
+--[[
+    1. UI must have a string attribute that holds the function name of it's action
+--]]
+
 function functions.Open(UI_Obj)
+
+
     local UI = UI_Obj.UI
     local conn = UI_Obj.Connections["Open"]
     if conn then conn:Disconnect() end
