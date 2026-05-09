@@ -74,6 +74,7 @@ function Open(UI_Obj)
 
         -- Initialize highest priority to lowest priority UI
         for i = 0, UI_Obj.OpenLowestPrio, 1 do
+            print(i, Prios[i])
             for _, ui in Prios[i] do
                 ui:Initialize()
             end
