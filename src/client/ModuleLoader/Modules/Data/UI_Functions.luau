@@ -3,9 +3,10 @@ local functions = {}
 -- GENERAL RULES
 --[[
     1. Folders must have unique names. 
-    2. Folders must have two child NumberValue.
-        -> OpenLowestPrio
-        -> CloseLowestPrio
+    2. Objects used in Open and Close must have an attribute called
+        -> CloseLowestPrio: Num
+        -> OpenLowestPrio: Num
+
     3. UIs must have tag "UI_Obj"
     4. UIs must have
         -> OpenPrioNum
@@ -19,8 +20,6 @@ local functions = {}
 --]]
 
 function functions.Open(UI_Obj)
-
-
     local UI = UI_Obj.UI
     local conn = UI_Obj.Connections["Open"]
     if conn then conn:Disconnect() end
@@ -34,11 +33,7 @@ function functions.Close(UI_Obj)
     local conn = UI_Obj.Connections["Close"]
     if conn then conn:Disconnect() end
     conn = UI.MouseButton1Click:Connect(function()
-        for _, attribute in UI_Obj do
-            local ui = shared.UI.UIs[attribute]
-            if not ui  then continue end
-            ui:Destroy()
-        end
+        Close(UI_Obj)
     end)
 end
 
@@ -71,6 +66,30 @@ function Open(UI_Obj)
             end
         end
     end    
+end
+
+function Close(UI_Obj)
+    local shared_UIs = shared.UI.UIs
+    local Prios = {}
+    local UIs = {}
+
+    for _, uiName in UI_Obj.Attributes do
+        local ui = shared_UIs[uiName]
+        if not ui then continue end
+        UIs[uiName] = ui
+    end
+
+    for _, ui in UIs do
+        local PrioNum = ui.ClosePrio
+        if not Prios[PrioNum] then Prios[PrioNum] = {} end
+        Prios[PrioNum][ui.UI.Name] = ui 
+    end
+
+    for i = 0, UI_Obj.CloseLowestPrio, 1 do
+        for _, ui in Prios[i] do
+            ui:Destroy()
+        end
+    end
 end
 
 return functions
