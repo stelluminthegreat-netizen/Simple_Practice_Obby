@@ -1,13 +1,16 @@
 local dataManager = {}
-local remoteFunction = game.ReplicatedStorage.Remotes.Functions.PlayerDataBridge
+dataManager.Profiles = {}
+local updatePlayerData = game.ReplicatedStorage.Remotes.Events.UpdatePlayerData
 
 function dataManager.RequestData(plr)
-    local data = remoteFunction:InvokeServer()
-    dataManager.StoreData(plr, data)
+    updatePlayerData:FireServer(plr)
+    dataManager.ReceiveData()
 end
 
-function dataManager.StoreData(plr, data)
-    dataManager[plr] = data
+function dataManager.ReceiveData()
+    updatePlayerData.OnClientEvent:Connect(function(plr, data)
+        dataManager.Profiles[plr] = data  
+    end)
 end
 
 return dataManager
