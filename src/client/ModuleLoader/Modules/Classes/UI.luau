@@ -26,6 +26,7 @@ function class:Initialize()
 end
 
 function class:Destroy()
+	class.UIs[self.UI.Name] = nil
 	self.UI:Destroy()
 	self.Player = nil
 

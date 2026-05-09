@@ -48,6 +48,7 @@ function Open(UI_Obj)
         -- Create the UI objects and store in UIs table
         for _, ui in UI_Folder:GetChildren() do
             if not ui:HasTag("UI_Obj") then continue end
+            if shared.UI.UIs[ui.Name] then return end
             local ui_Obj = shared.UI.new(ui)
             UIs[ui.Name] = ui_Obj
         end
