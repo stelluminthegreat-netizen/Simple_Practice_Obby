@@ -1,7 +1,7 @@
 local functions = {}
 local player = game.Players.LocalPlayer
-local dataManager = require(player.PlayerScripts.dataManager)
-local data = dataManager.Profiles[player]
+local DataManager = require(player.PlayerScripts.Client.Data.DataManager)
+local data = DataManager.Profiles[player]
 ------------------------ [[ UNIVERSAL FUNCTIONS ]] ------------------------
 
 -- GENERAL RULES
@@ -34,9 +34,9 @@ end
 
 function functions.Close(UI_Obj)
     local UI = UI_Obj.UI
-    local conn = UI_Obj.Connections["Close"]
-    if conn then conn:Disconnect() end
-    conn = UI.MouseButton1Click:Connect(function()
+    local conns = UI_Obj.Connections
+    if conns["Close"] then conns["Close"]:Disconnect() end
+    conns["Close"] = UI.MouseButton1Click:Connect(function()
         Close(UI_Obj)
     end)
 end
@@ -47,7 +47,6 @@ function functions.TextInput(UI_Obj)
    if conn then conn:Disconnect() end
    conn = UI.FocusLost:Connect(function(enterPressed)
         UI_Obj.Text = UI.Text
-        print(UI_Obj)
    end)
 end
 
@@ -76,7 +75,6 @@ function Open(UI_Obj)
 
         -- Initialize highest priority to lowest priority UI
         for i = 0, UI_Obj.OpenLowestPrio, 1 do
-            print(i, Prios[i])
             for _, ui in Prios[i] do
                 ui:Initialize()
             end
@@ -111,10 +109,21 @@ end
 ------------------------ [[ GAME SPECIFIC FUNCTIONS ]] ------------------------
 
 function functions.KillPlayer(UI_Obj)
-    local KillAbility = data.KillAbility
-    local UnliKillAbility = data.UnliKillAbility
-
-    
+    local remoteEvent = game.ReplicatedStorage.Remotes.Events.ProductPurchase
+    local players = game.Players
+    local conns = UI_Obj.Connections
+    if conns["KillPlayer"] then conns["KillPlayer"]:Disconnect() end
+    conns["KillPlayer"] = UI_Obj.UI.MouseButton1Click:Connect(function()
+        local textBoxName = UI_Obj.TextBoxName
+        local textBox = shared.UI.UIs[textBoxName]
+        local playerName = textBox.Text
+        
+        if (not playerName or not players:FindFirstChild(playerName)) then textBox.UI.Text = "Invalid Player" return end
+        Close(UI_Obj)
+        local productID = UI_Obj.ProductID
+        remoteEvent:FireServer(productID, playerName)
+        conns["KillPlayer"]:Disconnect()
+    end)
 end
 
 
