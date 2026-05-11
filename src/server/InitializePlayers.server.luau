@@ -1,6 +1,5 @@
 game.Players.PlayerAdded:Connect(function(plr)
     local player = shared.Player.new(plr)
-    -- local char = plr.Character or plr.CharacterAdded:Wait()
-    -- shared.Task:Wait(48)
-    -- char.Humanoid:TakeDamage(char.Humanoid.MaxHealth)
+    local killPlrTarget = Instance.new("StringValue", plr)
+    killPlrTarget.Name = "KillPlayerTarget"
 end)
