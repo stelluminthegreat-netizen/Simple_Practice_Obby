@@ -32,8 +32,14 @@ function class:SetSpawn(spawnPoint)
 end
 
 function class:Teleport(cframe)
-	local character = self.Character.Character
-	character:SetPrimaryPartCFrame(cframe)
+	shared.Threads:Spawn(function()
+		local character = self.Character.Character
+		local hrp = character.HumanoidRootPart
+		hrp.Anchored = true
+		character:SetPrimaryPartCFrame(cframe)
+		shared.Task:Wait(24)
+		hrp.Anchored = false
+	end)
 end
 
 function class.Died(Character, character)
