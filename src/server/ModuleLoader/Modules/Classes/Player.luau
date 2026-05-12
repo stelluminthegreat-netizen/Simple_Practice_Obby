@@ -48,7 +48,7 @@ function class.Died(Character, character)
 	shared.Threads:Spawn(function()
 		Character.DeathFunctionsRunning = true
 		local player = game.Players[character.Name]
-		local mainGui = player.PlayerGui.ScreenGui
+		local mainGui = player.PlayerGui.Main
 		local guiFolder = player.PlayerGui.Guis
 		local stareGui = guiFolder.Image.Death:Clone()
 
