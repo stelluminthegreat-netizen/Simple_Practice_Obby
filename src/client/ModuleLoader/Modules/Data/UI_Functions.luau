@@ -125,8 +125,8 @@ function functions.KillPlayer(UI_Obj)
         local productID = UI_Obj.ProductID
         remoteEvent:FireServer(playerName)
         MarketplaceService:PromptProductPurchase(player, productID)
-        Close(UI_Obj)
         conns["KillPlayer"]:Disconnect()
+        Close(UI_Obj)
     end)
 end
 
