@@ -9,17 +9,16 @@ return {
                 while true do
                     shared.Task:Wait(48 / 12)
                     local inRange = workspace:GetPartBoundsInBox(part.CFrame, part.Size + size)
+                    local name
                     for _, Part in inRange do
                         if not Part.Parent:FindFirstChild("Humanoid") then continue end
-                        if obstacle.DamagingList[part.Parent.Name] then continue end
-                        
-                        local name = Part.Parent.Name
+                        if obstacle.DamagingList[Part.Parent.Name] then continue end
+                        name = Part.Parent.Name
                         local character = shared.Character.Characters[name]
                         obstacle.DamagingList[name] = character
-                        print(shared.Character.Characters[name], character, name)
                         character:Kill()
-                        obstacle.DamagingList[name] = nil 
                     end
+                    if obstacle.DamagingList[name] then obstacle.DamagingList[name] = nil end 
                 end
             end)
         end
