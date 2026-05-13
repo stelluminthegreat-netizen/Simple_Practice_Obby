@@ -12,8 +12,8 @@ products[3590489186] = function(receipt, plr)
 	targetHRP.Anchored = true
 	local linearVelocity = Instance.new("LinearVelocity", rootAtt)
 	linearVelocity.Enabled = false
-	linearVelocity.MaxForce = 100_000
-	linearVelocity.VectorVelocity = targetHRP.CFrame.LookVector * -100_000
+	linearVelocity.MaxForce = 500_000
+	linearVelocity.VectorVelocity = targetHRP.CFrame.LookVector * -500_000
 	linearVelocity.Attachment0 = rootAtt
 	linearVelocity.Enabled = true
 	task.wait(2)
