@@ -130,9 +130,4 @@ function functions.KillPlayer(UI_Obj)
     end)
 end
 
-
-
-
-
-
 return functions

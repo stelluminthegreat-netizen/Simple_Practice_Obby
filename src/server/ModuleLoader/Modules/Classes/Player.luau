@@ -43,7 +43,7 @@ end
 function class.Died(Character, character)
 	shared.Threads:Spawn(function()
 		local audio = game.ReplicatedStorage.Audios.Revive:Clone()
-		audio.Parent = character
+		audio.Parent = character.Head
 		audio:Play()
 		audio.Ended:Wait()
 		audio:Destroy()
