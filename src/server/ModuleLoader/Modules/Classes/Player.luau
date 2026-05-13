@@ -35,10 +35,8 @@ function class:Teleport(cframe)
 	shared.Threads:Spawn(function()
 		local character = self.Character.Character
 		local hrp = character.HumanoidRootPart
-		hrp.Anchored = true
+		hrp.AssemblyLinearVelocity = Vector3.zero
 		character:SetPrimaryPartCFrame(cframe)
-		shared.Task:Wait(24)
-		hrp.Anchored = false
 	end)
 end
 
