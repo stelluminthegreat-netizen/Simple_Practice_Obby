@@ -20,6 +20,8 @@ products[3590489186] = function(receipt, plr)
 	targetHRP.Anchored = false
 	task.wait(0.1)
 	linearVelocity:Destroy()
+
+	return true
 end
 
 return products

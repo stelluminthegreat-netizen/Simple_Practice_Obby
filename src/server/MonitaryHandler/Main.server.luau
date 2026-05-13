@@ -1,6 +1,5 @@
 local Products = require(script.Parent.Products)
 local MPS = game:GetService("MarketplaceService")
-
 MPS.ProcessReceipt = function(receiptInfo)
     local player = game.Players:GetPlayerByUserId(receiptInfo.PlayerId)
 
