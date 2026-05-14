@@ -29,9 +29,17 @@ products[3590489186] = function(receipt, plr)
 	local hit = game.ReplicatedStorage.MeshVFX.Hit:Clone()
 	hit.Parent = workspace
 
+	local charging = game.ReplicatedStorage.Audios.Charging:Clone()
+	local charged = game.ReplicatedStorage.Audios.Charged:Clone()
+	local blast = game.ReplicatedStorage.Audios.Hit:Clone()
+
+	charging.Parent = char.Head
+	charged.Parent = char.Head
+	blast.Parent = char.Head
 	local tweens = {}
 
 	track:GetMarkerReachedSignal("Charge"):Connect(function()
+		charging:Play()
 		for _, child in phase1:GetChildren() do
 			child:Emit(10)
 			print("emit")
@@ -40,6 +48,8 @@ products[3590489186] = function(receipt, plr)
 	end)
 
 	track:GetMarkerReachedSignal("FinishCharge"):Connect(function()
+		charged:Play()
+		charging:Destroy()
 		phase1:Destroy()
 		phase2.Parent = char.RightHand
 		for _, child in phase2:GetChildren() do
@@ -63,6 +73,8 @@ products[3590489186] = function(receipt, plr)
 		for _, tween in pairs(tweens) do
 			tween:Play()
 		end
+		blast:Play()
+		charged:Destroy()
 		targetHRP.Anchored = false
 		task.wait(0.1)
 		linearVelocity:Destroy()
@@ -72,6 +84,7 @@ products[3590489186] = function(receipt, plr)
 		phase2:Destroy()
 		shared.Task:Wait(48 * 2)
 		hit:Destroy()
+		blast:Destroy()
 	end)
 	track:Play()
 
