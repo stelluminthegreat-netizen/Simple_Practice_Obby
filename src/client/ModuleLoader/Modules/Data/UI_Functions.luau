@@ -121,7 +121,7 @@ function functions.KillPlayer(UI_Obj)
         local playerName = textBox.Text
         
         if (not playerName or not players:FindFirstChild(playerName)) then textBox.UI.Text = "Invalid Player" return end
-        -- if playerName == player.Name then textBox.UI.Text = "Give value to your own life dude" end
+        if playerName == player.Name then textBox.UI.Text = "Give value to your own life dude" end
         local productID = UI_Obj.ProductID
         remoteEvent:FireServer(playerName)
         MarketplaceService:PromptProductPurchase(player, productID)
