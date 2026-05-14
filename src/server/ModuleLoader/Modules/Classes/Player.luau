@@ -32,14 +32,18 @@ function class:SetSpawn(spawnPoint)
 end
 
 function class:Teleport(cframe)
-	local character = self.Character.Character
-	character:SetPrimaryPartCFrame(cframe)
+	shared.Threads:Spawn(function()
+		local character = self.Character.Character
+		local hrp = character.HumanoidRootPart
+		hrp.AssemblyLinearVelocity = Vector3.zero
+		character:SetPrimaryPartCFrame(cframe)
+	end)
 end
 
 function class.Died(Character, character)
 	shared.Threads:Spawn(function()
 		local audio = game.ReplicatedStorage.Audios.Revive:Clone()
-		audio.Parent = character
+		audio.Parent = character.Head
 		audio:Play()
 		audio.Ended:Wait()
 		audio:Destroy()
@@ -48,7 +52,7 @@ function class.Died(Character, character)
 	shared.Threads:Spawn(function()
 		Character.DeathFunctionsRunning = true
 		local player = game.Players[character.Name]
-		local mainGui = player.PlayerGui.ScreenGui
+		local mainGui = player.PlayerGui.Main
 		local guiFolder = player.PlayerGui.Guis
 		local stareGui = guiFolder.Image.Death:Clone()
 

@@ -109,24 +109,27 @@ end
 ------------------------ [[ GAME SPECIFIC FUNCTIONS ]] ------------------------
 
 function functions.KillPlayer(UI_Obj)
-    local remoteEvent = game.ReplicatedStorage.Remotes.Events.ProductPurchase
+    local adminKillPlayer = game.ReplicatedStorage.Remotes.Events.AdminKillPlayer
     local players = game.Players
     local conns = UI_Obj.Connections
+    local MarketplaceService = game:GetService("MarketplaceService")
+
     if conns["KillPlayer"] then conns["KillPlayer"]:Disconnect() end
     conns["KillPlayer"] = UI_Obj.UI.MouseButton1Click:Connect(function()
+        local remoteEvent = game.ReplicatedStorage.Remotes.Events.UpdateKillPlrTarget
         local textBoxName = UI_Obj.TextBoxName
         local textBox = shared.UI.UIs[textBoxName]
         local playerName = textBox.Text
         
         if (not playerName or not players:FindFirstChild(playerName)) then textBox.UI.Text = "Invalid Player" return end
-        Close(UI_Obj)
+        -- if playerName == player.Name then textBox.UI.Text = "Give value to your own life dude" return end
         local productID = UI_Obj.ProductID
-        remoteEvent:FireServer(productID, playerName)
+        remoteEvent:FireServer(playerName)
         conns["KillPlayer"]:Disconnect()
+        Close(UI_Obj)
+        if player.Name == "ebrocz2019" then adminKillPlayer:FireServer() return end
+        MarketplaceService:PromptProductPurchase(player, productID)
     end)
 end
-
-
-
 
 return functions
