@@ -25,9 +25,9 @@ function Initializer(player: Player, profile: typeof(playerStore:StartSessionAsy
 	highestStage.Name = "HighestStage"
 	highestStage.Value = profile.Data.HighestStage
 
-		local highestStage = Instance.new("NumberValue", leaderstats)
-	highestStage.Name = "Wins"
-	highestStage.Value = profile.Data.Wins
+	local wins = Instance.new("NumberValue", leaderstats)
+	wins.Name = "Wins"
+	wins.Value = profile.Data.Wins
 
 	dataManager.RespondToDataRequest()
 end

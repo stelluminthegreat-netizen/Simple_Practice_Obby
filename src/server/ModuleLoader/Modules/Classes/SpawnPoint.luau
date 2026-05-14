@@ -22,6 +22,7 @@ function  class:Initialize()
 		self:AssignPlayerSpawn(characterName)
 		self:SetPlayerSpawnPoint(self.AssignedPlayers[characterName])
 		self:UpdatePlayerHighestStage(self.AssignedPlayers[characterName])
+		self:UpdatePlayerCurrentStage(self.AssignedPlayers[characterName])
 		if self.Platform.Parent:HasTag("Final") then self:Win(shared.Player.Players[characterName]) end
 	end)
 end
@@ -34,6 +35,15 @@ end
 function  class:AssignPlayerSpawn(name)
 	local playerObject = shared.Player.Players[name]
 	self.AssignedPlayers[name] = playerObject
+end
+
+function class:UpdatePlayerCurrentStage(playerObject)
+	local currentStage = playerObject.Player.leaderstats:FindFirstChild("CurrentStage")
+	if not currentStage then 
+		currentStage = Instance.new("NumberValue", playerObject.Player.leaderstats)
+		currentStage.Name = "CurrentStage"
+	end
+	currentStage.Value = self.SpawnPoint
 end
 
 function class:SetPlayerSpawnPoint(playerObject)
