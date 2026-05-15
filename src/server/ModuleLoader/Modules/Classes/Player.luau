@@ -2,6 +2,8 @@ local class = {}
 class.__index = class
 class.Players = {}
 
+local minorTaskRequest = game.ReplicatedStorage.Remotes.Events.MinorTaskRequest 
+
 function class.new(player)
 	local self = setmetatable({}, class)
 	self:Initialize(player)
@@ -42,11 +44,7 @@ end
 
 function class.Died(Character, character)
 	shared.Threads:Spawn(function()
-		local audio = game.ReplicatedStorage.Audios.Revive:Clone()
-		audio.Parent = character.Head
-		audio:Play()
-		audio.Ended:Wait()
-		audio:Destroy()
+		minorTaskRequest:FireClient(game.Players[character.Name], "PlaySound","Revive")
 	end)
 
 	shared.Threads:Spawn(function()
