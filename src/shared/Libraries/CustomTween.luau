@@ -37,4 +37,13 @@ function CustomTween.TweenTransparency(basePart, targetTransparency, duration)
 	return tween
 end
 
+function CustomTween.TweenUITransparency(UI, targetTransparency, duration)
+	local tween = tweenServ:Create(
+		UI,
+		TweenInfo.new(duration),
+		{ImageTransparency = targetTransparency})
+	
+	return tween
+end
+
 return CustomTween
