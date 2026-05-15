@@ -21,7 +21,7 @@ function self.PlaySound(soundName)
     local sound = game.ReplicatedStorage.Audios[soundName]:Clone()
     sound.Parent = SoundService
     sound:Play()
-    sound.Completed:Wait()
+    sound.Ended:Wait()
     sound:Destroy()
 end
 
