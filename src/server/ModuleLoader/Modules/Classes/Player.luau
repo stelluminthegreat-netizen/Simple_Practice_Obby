@@ -2,6 +2,7 @@ local class = {}
 class.__index = class
 class.Players = {}
 
+local customTween = require(game.ReplicatedStorage.Shared.Libraries.CustomTween)
 local minorTaskRequest = game.ReplicatedStorage.Remotes.Events.MinorTaskRequest 
 
 function class.new(player)
@@ -55,16 +56,11 @@ function class.Died(Character, character)
 		local stareGui = guiFolder.Image.Death:Clone()
 
 		stareGui.Parent = mainGui
-		while stareGui.ImageTransparency ~= 0.3999999165534973 do
-			shared.Task:Wait(4)
-			stareGui.ImageTransparency -= 0.1
-		end
-
-		while stareGui.ImageTransparency ~= 1 do
-			shared.Task:Wait(4)
-			stareGui.ImageTransparency += 0.1
-		end
-
+		stareGui.ImageTransparency = 0
+		shared.Task:Wait(12)
+		local tween = customTween.TweenUITransparency(stareGui, 1, 2)
+		tween:Play()
+		tween.Completed:Wait()
 		stareGui:Destroy()
 		Character.DeathFunctionsRunning = false
 	end)
